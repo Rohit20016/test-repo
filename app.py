@@ -1,12 +1,6 @@
-import sqlite3
+from flask import request
 
-def get_user(username):
-    conn = sqlite3.connect("users.db")
-    cursor = conn.cursor()
-
-    # Intentionally insecure (CodeQL will flag this)
-    cursor.execute(
-        f"SELECT * FROM users WHERE name = '{username}'"
-    )
-
-    return cursor.fetchall()
+@app.route("/user")
+def user():
+    username = request.args.get("username")
+    return get_user(username)
